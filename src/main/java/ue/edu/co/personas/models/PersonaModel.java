@@ -1,30 +1,28 @@
 package ue.edu.co.personas.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "persona")
-public class PersonaModel{
+public class PersonaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
 
+    @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private TipoPersonaModel tipoPersona;
+
     private String nombre;
     private String email;
     private Integer prioridad;
 
-    public void setPrioridad(Integer prioridad){
+    public void setPrioridad(Integer prioridad) {
         this.prioridad = prioridad;
     }
 
-    public Integer getPrioridad(){
+    public Integer getPrioridad() {
         return prioridad;
     }
 

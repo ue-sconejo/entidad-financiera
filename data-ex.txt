@@ -1,0 +1,26 @@
+//Ejemplo solicitud
+{
+    "tipo-solicitud" : "Juan",
+    "email" : "juan@gmail.com",
+    "prioridad" : 4
+}
+// Ejemplo persona
+{
+    "nombre" : "Juan",
+    "email" : "juan@gmail.com",
+    "prioridad" : 4
+}
+
+//Ejemplo tipo persona
+{
+    "nombre" : "Juan",
+    "email" : "juan@gmail.com",
+    "prioridad" : 4
+}
+
+//Ejemplo Producto
+{
+    "nombre" : "Juan",
+    "email" : "juan@gmail.com",
+    "prioridad" : 4
+}

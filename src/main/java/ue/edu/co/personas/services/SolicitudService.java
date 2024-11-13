@@ -1,4 +1,4 @@
-package  ue.edu.co.personas.services;
+package ue.edu.co.personas.services;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -14,28 +14,24 @@ public class SolicitudService {
     @Autowired
     SolicitudRepository solicitudRepository;
 
-    public ArrayList<SolicitudModel> obtnerTodos(){
+    public ArrayList<SolicitudModel> obtnerTodos() {
         return (ArrayList<SolicitudModel>) solicitudRepository.findAll();
     }
 
-    public SolicitudModel guardar(SolicitudModel solicitud){
+    public SolicitudModel guardar(SolicitudModel solicitud) {
         return solicitudRepository.save(solicitud);
     }
 
-    public Optional<SolicitudModel> obtenerPorId(Long id){
+    public Optional<SolicitudModel> obtenerPorId(Long id) {
         return solicitudRepository.findById(id);
     }
-    
-    public ArrayList<SolicitudModel> obtenerPorCliente(Long cliente){
-        return solicitudRepository.findByCliente(cliente);
-    }
 
-    public boolean eliminar(Long id){
-        try{    
+    public boolean eliminar(Long id) {
+        try {
             solicitudRepository.deleteById(id);
             return true;
-        }catch(Exception err){
-            return  false;
+        } catch (Exception err) {
+            return false;
         }
     }
 }

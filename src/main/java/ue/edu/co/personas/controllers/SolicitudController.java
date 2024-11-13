@@ -1,4 +1,5 @@
 package ue.edu.co.personas.controllers;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -25,52 +26,54 @@ public class SolicitudController {
 
     // Create
     @PostMapping()
-    public SolicitudModel guardaPersona(@RequestBody SolicitudModel solicitud){
+    public SolicitudModel guardaPersona(@RequestBody SolicitudModel solicitud) {
         return this.service.guardar(solicitud);
     }
+
     // Read
     @GetMapping()
-    public ArrayList<SolicitudModel> obtenerSolicitudes(){
+    public ArrayList<SolicitudModel> obtenerSolicitudes() {
         return service.obtnerTodos();
     }
 
-    @GetMapping(  path = "/{id}" )
-    public Optional<SolicitudModel> optenerPorId(@PathVariable("id") Long id){
+    @GetMapping(path = "/{id}")
+    public Optional<SolicitudModel> optenerPorId(@PathVariable("id") Long id) {
         return this.service.obtenerPorId(id);
     }
 
-    @GetMapping("/query")
-    public ArrayList<SolicitudModel> obtenerPorCliente(@RequestParam("cliente") Long cliente){
-        return this.service.obtenerPorCliente(cliente);
-    }
+    // @GetMapping("/query")
+    // public ArrayList<SolicitudModel> obtenerPorCliente(@RequestParam("cliente")
+    // Long cliente){
+    // return this.service.obtenerPorCliente(cliente);
+    // }
 
     // Delete
-    @DeleteMapping( path = "/{id}" )
-    public String eliminarPorId(@PathVariable("id") Long id){
+    @DeleteMapping(path = "/{id}")
+    public String eliminarPorId(@PathVariable("id") Long id) {
         boolean ok = this.service.eliminar(id);
-        if(ok){
+        if (ok) {
             return "Persona eliminada id:" + id;
-        }else{
+        } else {
             return "No se pudo eliminar a la persona con el id: " + id;
         }
     }
 
     // Update
-    @PutMapping( value = "/actualizar/{id}" )
-    public String actualizarPersona(@PathVariable("id") Long id, @RequestBody SolicitudModel solicitud){
+    @PutMapping(value = "/actualizar/{id}")
+    public String actualizarPersona(@PathVariable("id") Long id, @RequestBody SolicitudModel solicitud) {
         Optional<SolicitudModel> actualizarData = this.service.obtenerPorId(id);
-        if(actualizarData.isPresent()){
+        if (actualizarData.isPresent()) {
             SolicitudModel existeData = actualizarData.get();
             getPersona(existeData, solicitud);
             return "Persona Actualizada: " + id;
-        }else{
+        } else {
             SolicitudModel nuevaData = new SolicitudModel();
             getPersona(nuevaData, solicitud);
             return "Persona creada";
         }
     }
 
-    private SolicitudModel getPersona(SolicitudModel oldData, SolicitudModel newData){
+    private SolicitudModel getPersona(SolicitudModel oldData, SolicitudModel newData) {
         oldData.setNombre(newData.getNombre());
         oldData.setTipo(newData.getTipo());
         oldData.setCliente(newData.getCliente());

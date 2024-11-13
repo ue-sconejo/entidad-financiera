@@ -1,4 +1,4 @@
-package  ue.edu.co.personas.services;
+package ue.edu.co.personas.services;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -14,28 +14,28 @@ public class PersonaService {
     @Autowired
     PersonaRepository personaRepository;
 
-    public ArrayList<PersonaModel> obtenerPersona(){
+    public ArrayList<PersonaModel> obtenerPersona() {
         return (ArrayList<PersonaModel>) personaRepository.findAll();
     }
 
-    public PersonaModel guardarPersona(PersonaModel persona){
+    public PersonaModel guardarPersona(PersonaModel persona) {
         return personaRepository.save(persona);
     }
 
-    public Optional<PersonaModel> obtenerPorId(Long id){
+    public Optional<PersonaModel> obtenerPorId(Long id) {
         return personaRepository.findById(id);
     }
-    
-    public ArrayList<PersonaModel> obtenerPorPrioridad(Integer prioridad){
+
+    public ArrayList<PersonaModel> obtenerPorPrioridad(Integer prioridad) {
         return personaRepository.findByPrioridad(prioridad);
     }
 
-    public boolean eliminarPersona(Long id){
-        try{    
+    public boolean eliminarPersona(Long id) {
+        try {
             personaRepository.deleteById(id);
             return true;
-        }catch(Exception err){
-            return  false;
+        } catch (Exception err) {
+            return false;
         }
     }
 }
