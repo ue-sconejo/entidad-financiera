@@ -9,5 +9,5 @@ import ue.edu.co.personas.models.SolicitudModel;
 
 @Repository
 public interface SolicitudRepository extends CrudRepository<SolicitudModel, Long> {
-    public abstract ArrayList<SolicitudModel> findByCliente(Long cliente);
+   // public abstract ArrayList<SolicitudModel> findByCliente(Long cliente);
 }
