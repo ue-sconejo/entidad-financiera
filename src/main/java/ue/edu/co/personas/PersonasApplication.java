@@ -1,13 +1,13 @@
-package com.example.demo;
+package ue.edu.co.personas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class PersonasApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(PersonasApplication.class, args);
 	}
 
 }
