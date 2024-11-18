@@ -1,26 +1,30 @@
-//Ejemplo solicitud
+//Ej tipo persona
 {
-    "tipo-solicitud" : "Juan",
-    "email" : "juan@gmail.com",
-    "prioridad" : 4
+    "nombre" : "Natural"
 }
+
 // Ejemplo persona
 {
     "nombre" : "Juan",
     "email" : "juan@gmail.com",
-    "prioridad" : 4
+    "prioridad" : 1,
+    "tipoPersona" : {
+        "id" : 1
+    }
 }
 
-//Ejemplo tipo persona
+//Ejemplo solicitud date: YYYY-MM-dd
 {
-    "nombre" : "Juan",
-    "email" : "juan@gmail.com",
-    "prioridad" : 4
+    "fechaCreacion" : "2024-02-02",
+    "persona" : {
+            "id" : 1
+    }
 }
 
 //Ejemplo Producto
 {
-    "nombre" : "Juan",
-    "email" : "juan@gmail.com",
-    "prioridad" : 4
+    "nombre" : "Credito",
+    "solicitud" : {
+        "id" : 1
+    }
 }
