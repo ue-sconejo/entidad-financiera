@@ -56,7 +56,7 @@ public class PersonaController {
         }
     }
 
-    // Update
+    // Update Persona
     @PutMapping(value = "/actualizar/{id}")
     public String actualizarPersona(@PathVariable("id") Long id, @RequestBody PersonaModel persona) {
         // Obtiene la data actual
