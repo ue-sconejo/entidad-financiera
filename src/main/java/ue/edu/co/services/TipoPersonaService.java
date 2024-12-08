@@ -26,13 +26,6 @@ public class TipoPersonaService {
         return repo.findById(id);
     }
 
-    // Remplaza la Info vieja con la nueva y la guarda
-    public TipoPersonaModel updateData(TipoPersonaModel oldData, TipoPersonaModel newData) {
-        oldData.setNombre(newData.getNombre());
-        this.guardar(oldData);
-        return oldData;
-    }
-
     public boolean eliminar(Long id) {
         try {
             repo.deleteById(id);

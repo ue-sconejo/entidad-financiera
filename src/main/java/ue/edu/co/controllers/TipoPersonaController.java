@@ -51,19 +51,17 @@ public class TipoPersonaController {
     }
 
     // Update
-    @PutMapping(value = "/actualizar/{id}")
-    public String actualizarPersona(@PathVariable("id") Long id, @RequestBody TipoPersonaModel newData) {
+    @PutMapping(value = "/actualizar")
+    public String actualizarTipoPersona(@RequestBody TipoPersonaModel tipoPersona) {
         // Obtiene la data actual
-        Optional<TipoPersonaModel> actualizaInfo = this.service.obtenerPorId(id);
+        Optional<TipoPersonaModel> actualizaInfo = this.service.obtenerPorId(tipoPersona.getId());
         // Compara si ya esta registrada la data
         if (actualizaInfo.isPresent()) {
-            TipoPersonaModel getData = actualizaInfo.get();
-            service.updateData(getData, newData);
-            return "Info Actualizada: " + id;
+            service.guardar(tipoPersona);
+            return "Info Actualizada en: " + tipoPersona.getNombre();
         } else {
-            TipoPersonaModel createNew = new TipoPersonaModel();
-            service.updateData(createNew, newData);
-            return "Info creada";
+            service.guardar(tipoPersona);
+            return "Info creada con exito";
         }
     }
 }

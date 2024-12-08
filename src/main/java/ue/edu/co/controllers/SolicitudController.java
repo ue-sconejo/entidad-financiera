@@ -51,19 +51,17 @@ public class SolicitudController {
     }
 
     // Update
-    @PutMapping(value = "/actualizar/{id}")
-    public String actualziarSolicitud(@PathVariable("id") Long id, @RequestBody SolicitudModel newData) {
+    @PutMapping(value = "/actualizar")
+    public String actualziarSolicitud(@RequestBody SolicitudModel solicitud) {
         // Obtiene la data actual
-        Optional<SolicitudModel> actualizaInfo = this.service.obtenerPorId(id);
+        Optional<SolicitudModel> actualizaInfo = this.service.obtenerPorId(solicitud.getId());
         // Compara si ya esta registrada la data
         if (actualizaInfo.isPresent()) {
-            SolicitudModel getData = actualizaInfo.get();
-            service.updateData(getData, newData);
-            return "Info Actualizada: " + id;
+            service.guardar(solicitud);
+            return "Info Actualizada en: " + solicitud.getId();
         } else {
-            SolicitudModel createNew = new SolicitudModel();
-            service.updateData(createNew, newData);
-            return "Info creada";
+            service.guardar(solicitud);
+            return "Info creada con exito";
         }
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ue.edu.co.models.PersonaModel;
@@ -51,20 +50,18 @@ public class PersonaController {
         }
     }
 
-    // Update Persona
-    @PutMapping(value = "/actualizar/{id}")
-    public String actualizarPersona(@PathVariable("id") Long id, @RequestBody PersonaModel persona) {
+    // Update
+    @PutMapping(value = "/actualizar")
+    public String actualizarPersona(@RequestBody PersonaModel persona) {
         // Obtiene la data actual
-        Optional<PersonaModel> actualizaPersona = this.service.obtenerPorId(id);
+        Optional<PersonaModel> actualizaPersona = this.service.obtenerPorId(persona.getId());
         // Compara si ya esta registrada la data
         if (actualizaPersona.isPresent()) {
-            PersonaModel existePersona = actualizaPersona.get();
-            service.updateData(existePersona, persona);
-            return "Info Actualizada: " + id;
+            service.guardar(persona);
+            return "Informacion Actualizada de la persona: " + persona.getNombre();
         } else {
-            PersonaModel nuevaPersona = new PersonaModel();
-            service.updateData(nuevaPersona, persona);
-            return "Info creada";
+            service.guardar(persona);
+            return "Persona creada";
         }
     }
 

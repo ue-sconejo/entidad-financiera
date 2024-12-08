@@ -11,6 +11,7 @@ import ue.edu.co.repositories.PersonaRepository;
 
 @Service
 public class PersonaService {
+    
     @Autowired
     PersonaRepository repo;
 
@@ -24,15 +25,6 @@ public class PersonaService {
 
     public Optional<PersonaModel> obtenerPorId(Long id) {
         return repo.findById(id);
-    }
-
-    // Remplaza la Info vieja con la nueva y la guarda
-    public PersonaModel updateData(PersonaModel oldData, PersonaModel newData) {
-        oldData.setNombre(newData.getNombre());
-        oldData.setEmail(newData.getEmail());
-        oldData.setTipoPersona(newData.getTipoPersona());
-        this.guardar(oldData);
-        return oldData;
     }
 
     public boolean eliminar(Long id) {

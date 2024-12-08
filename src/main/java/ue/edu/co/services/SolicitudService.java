@@ -26,13 +26,6 @@ public class SolicitudService {
         return repo.findById(id);
     }
 
-    // Remplaza la Info vieja con la nueva y la guarda
-    public SolicitudModel updateData(SolicitudModel oldData, SolicitudModel newData) {
-        oldData.setFechaCreacion(newData.getFechaCreacion());
-        this.guardar(oldData);
-        return oldData;
-    }
-
     public boolean eliminar(Long id) {
         try {
             repo.deleteById(id);

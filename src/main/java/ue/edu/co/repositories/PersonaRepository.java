@@ -9,6 +9,4 @@ import ue.edu.co.models.PersonaModel;
 
 @Repository
 public interface PersonaRepository extends CrudRepository<PersonaModel, Long> {
-    // Metodo de busqueda por prioridad
-    public abstract ArrayList<PersonaModel> findByPrioridad(Integer prioridad);
 }

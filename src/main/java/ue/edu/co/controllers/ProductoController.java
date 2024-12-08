@@ -57,19 +57,17 @@ public class ProductoController {
     }
 
     // Update
-    @PutMapping(value = "/actualizar/{id}")
-    public String actualizarProducto(@PathVariable("id") Long id, @RequestBody ProductoModel newData) {
+    @PutMapping(value = "/actualizar")
+    public String actualizarProducto(@RequestBody ProductoModel producto) {
         // Obtiene la data actual
-        Optional<ProductoModel> actualizaInfo = this.service.obtenerPorId(id);
+        Optional<ProductoModel> actualizaInfo = this.service.obtenerPorId(producto.getId());
         // Compara si ya esta registrada la data
         if (actualizaInfo.isPresent()) {
-            ProductoModel getData = actualizaInfo.get();
-            service.updateData(getData, newData);
-            return "Info Actualizada: " + id;
+            service.guardar(producto);
+            return "Info Actualizada en: " + producto.getNombre();
         } else {
-            ProductoModel createNew = new ProductoModel();
-            service.updateData(createNew, newData);
-            return "Info creada";
+            service.guardar(producto);
+            return "Info creada con exito";
         }
     }
 }

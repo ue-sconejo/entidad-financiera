@@ -31,14 +31,6 @@ public class ProductoService {
         return repo.findById(id);
     }
 
-    // Remplaza la Info vieja con la nueva y la guarda
-    public ProductoModel updateData(ProductoModel oldData, ProductoModel newData) {
-        oldData.setNombre(newData.getNombre());
-        oldData.setSolicitud(newData.getSolicitud());
-        this.guardar(oldData);
-        return oldData;
-    }
-
     public boolean eliminar(Long id) {
         try {
             repo.deleteById(id);
