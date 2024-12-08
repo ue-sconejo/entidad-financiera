@@ -22,7 +22,6 @@ public class PersonaModel {
 
     private String nombre;
     private String email;
-    private Integer prioridad;
 
     public void setTipoPersona(TipoPersonaModel tp) {
         this.tipoPersona = tp;
@@ -38,14 +37,6 @@ public class PersonaModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getPrioridad() {
-        return prioridad;
-    }
-
-    public void setPrioridad(Integer prioridad) {
-        this.prioridad = prioridad;
     }
 
     public String getNombre() {

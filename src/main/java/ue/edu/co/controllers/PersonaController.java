@@ -40,11 +40,6 @@ public class PersonaController {
         return this.service.obtenerPorId(id);
     }
 
-    @GetMapping("/query")
-    public ArrayList<PersonaModel> obtenerPorPrioridad(@RequestParam("prioridad") Integer prioridad) {
-        return this.service.obtenerPorPrioridad(prioridad);
-    }
-
     // Delete
     @DeleteMapping(path = "/{id}")
     public String eliminarPorId(@PathVariable("id") Long id) {
