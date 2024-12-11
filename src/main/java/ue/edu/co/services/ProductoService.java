@@ -23,8 +23,8 @@ public class ProductoService {
         return (ArrayList<ProductoModel>) repo.findBySolicitud(s);
     }
 
-    public ProductoModel guardar(ProductoModel persona) {
-        return repo.save(persona);
+    public ProductoModel guardar(ProductoModel p) {
+        return repo.save(p);
     }
 
     public Optional<ProductoModel> obtenerPorId(Long id) {

@@ -22,6 +22,7 @@ public class PersonaModel {
 
     private String nombre;
     private String email;
+    private String documento;
 
     public void setTipoPersona(TipoPersonaModel tp) {
         this.tipoPersona = tp;
@@ -53,5 +54,13 @@ public class PersonaModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String doc) {
+        this.documento = doc;
     }
 }

@@ -1,6 +1,5 @@
 package ue.edu.co.models;
 
-import java.util.Date;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -27,7 +26,7 @@ public class SolicitudModel {
     @OneToMany(mappedBy="solicitud")
     private Set<ProductoModel> productos;
 
-    private Date fechaCreacion;
+    private String estado;
 
     public void setPersona(PersonaModel p) {
         this.persona = p;
@@ -53,11 +52,11 @@ public class SolicitudModel {
         this.id = id;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setFechaCreacion(Date fecha) {
-        this.fechaCreacion = fecha;
+    public void setEstado(String e) {
+        this.estado = e;
     }
 }

@@ -14,7 +14,7 @@ public class PersonaService {
     
     @Autowired
     PersonaRepository repo;
-
+    
     public ArrayList<PersonaModel> obtenerTodos() {
         return (ArrayList<PersonaModel>) repo.findAll();
     }

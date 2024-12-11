@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ue.edu.co.models.PersonaModel;
 
 import ue.edu.co.models.SolicitudModel;
 import ue.edu.co.services.SolicitudService;
@@ -62,6 +63,17 @@ public class SolicitudController {
         } else {
             service.guardar(solicitud);
             return "Info creada con exito";
+        }
+    }
+
+    @GetMapping(path="procesar")
+    public String consultaApi(@RequestBody SolicitudModel solicitud) {
+        PersonaModel persona = solicitud.getPersona();
+        String documento = persona.getDocumento();
+        if(service.consultarDataCredito(documento) >= 350 && !service.consultarBlackList(documento)) {
+            return service.crearProducto(solicitud);
+        } else {
+            return "Rechazado";
         }
     }
 }

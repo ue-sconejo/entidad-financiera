@@ -7,7 +7,7 @@
 {
     "nombre" : "Juan",
     "email" : "juan@gmail.com",
-    "prioridad" : 1,
+    "documento" : "1001",
     "tipoPersona" : {
         "id" : 1
     }
