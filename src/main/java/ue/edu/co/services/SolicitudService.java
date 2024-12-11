@@ -53,12 +53,8 @@ public class SolicitudService {
     }
     
     public String rechazarSolicitud (SolicitudModel solicitud) {
-        ProductoModel tarjeta = new ProductoModel();
         PersonaModel persona = solicitud.getPersona();
         solicitud.setEstado("Rechazada");
-        tarjeta.setNombre("Tarjeta de Credito");
-        tarjeta.setSolicitud(solicitud);
-        prodRepo.save(tarjeta);
         repo.save(solicitud);
         emailService.sendSimpleEmail(persona.getEmail(), "Entidad Financiera", "Rechazada la solicitud de tarjeta de credito");
         return "{\"estado\": \"Rechazado\"}";
