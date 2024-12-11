@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import ue.edu.co.models.SolicitudModel;
 import ue.edu.co.services.SolicitudService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/solicitud")
 public class SolicitudController {
     @Autowired
@@ -33,6 +35,21 @@ public class SolicitudController {
     @GetMapping()
     public ArrayList<SolicitudModel> obtenerSolicitudes() {
         return service.obtnerTodos();
+    }
+    
+    @GetMapping(path="aprovados")
+    public ArrayList<SolicitudModel> obenerAprovados() {
+        return service.obtenerPorEstado("Aprovado");
+    }
+    
+    @GetMapping(path="pendientes")
+    public ArrayList<SolicitudModel> obenerPendientes() {
+        return service.obtenerPorEstado("Pendiente");
+    }
+    
+    @GetMapping(path="rechazadas")
+    public ArrayList<SolicitudModel> obtenerRechazadas() {
+        return service.obtenerPorEstado("Rechazada");
     }
 
     @GetMapping(path = "/{id}")
@@ -66,14 +83,14 @@ public class SolicitudController {
         }
     }
 
-    @GetMapping(path="procesar")
+    @PostMapping(path="procesar")
     public String consultaApi(@RequestBody SolicitudModel solicitud) {
         PersonaModel persona = solicitud.getPersona();
         String documento = persona.getDocumento();
         if(service.consultarDataCredito(documento) >= 350 && !service.consultarBlackList(documento)) {
             return service.crearProducto(solicitud);
         } else {
-            return "Rechazado";
+            return service.rechazarSolicitud(solicitud);
         }
     }
 }

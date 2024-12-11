@@ -49,15 +49,31 @@ public class SolicitudService {
         prodRepo.save(tarjeta);
         repo.save(solicitud);
         emailService.sendSimpleEmail(persona.getEmail(), "Entidad Financiera", "Completada la solicitud de tarjeta de credito");
-        return "exito";
+        return "{\"estado\": \"Aprovado\"}";
+    }
+    
+    public String rechazarSolicitud (SolicitudModel solicitud) {
+        ProductoModel tarjeta = new ProductoModel();
+        PersonaModel persona = solicitud.getPersona();
+        solicitud.setEstado("Rechazada");
+        tarjeta.setNombre("Tarjeta de Credito");
+        tarjeta.setSolicitud(solicitud);
+        prodRepo.save(tarjeta);
+        repo.save(solicitud);
+        emailService.sendSimpleEmail(persona.getEmail(), "Entidad Financiera", "Rechazada la solicitud de tarjeta de credito");
+        return "{\"estado\": \"Rechazado\"}";
     }
 
     public ArrayList<SolicitudModel> obtnerTodos() {
         return (ArrayList<SolicitudModel>) repo.findAll();
     }
+    
+    public ArrayList<SolicitudModel> obtenerPorEstado(String estado) {
+        return (ArrayList<SolicitudModel>) repo.findByEstado(estado);
+    }
 
-    public SolicitudModel guardar(SolicitudModel tp) {
-        return repo.save(tp);
+    public SolicitudModel guardar(SolicitudModel s) {
+        return repo.save(s);
     }
 
     public Optional<SolicitudModel> obtenerPorId(Long id) {

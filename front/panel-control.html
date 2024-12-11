@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumir API</title>
+    <style>
+        .persona {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .productos {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Solicitudes</h1>
+    <button id="cargarTodos">Mostrar todos</button>
+    <button id="cargarAprovados">Mostrar Aprovados</button>
+    <button id="cargarPendientes">Mostrar Pendientes</button>
+    <button id="cargarRechazadas">Mostrar Rechazadas</button>
+    <div id="resultado">
+    </div>
+
+    <script>
+        // Llamado a la api
+        async function getTodos() {
+            const url = 'http://localhost:8080/solicitud';
+
+            const requestOptions = {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            };
+
+            try {
+                const response = await fetch(url, requestOptions);
+                const data = await response.json();
+                mostrarDatos(data);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('resultado').innerHTML = 'Error al obtener los datos: ' + error.message;
+            }
+        }
+
+        async function getAprovados() {
+            const url = 'http://localhost:8080/solicitud/aprovados';
+
+            const requestOptions = {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            };
+
+            try {
+                const response = await fetch(url, requestOptions);
+                const data = await response.json();
+                mostrarDatos(data);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('resultado').innerHTML = 'Error al obtener los datos: ' + error.message;
+            }
+        }
+
+        async function getPendientes() {
+            const url = 'http://localhost:8080/solicitud/pendientes';
+
+            const requestOptions = {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            };
+
+            try {
+                const response = await fetch(url, requestOptions);
+                const data = await response.json();
+                mostrarDatos(data);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('resultado').innerHTML = 'Error al obtener los datos: ' + error.message;
+            }
+        }
+
+        async function getRechazadas() {
+            const url = 'http://localhost:8080/solicitud/rechazadas';
+
+            const requestOptions = {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            };
+
+            try {
+                const response = await fetch(url, requestOptions);
+                const data = await response.json();
+                mostrarDatos(data);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('resultado').innerHTML = 'Error al obtener los datos: ' + error.message;
+            }
+        }
+
+        async function procesarSolicitud(solicitud) {
+            const url = 'http://localhost:8080/solicitud/procesar';
+            const requestOptions = {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json' 
+                },
+                body: (JSON.stringify(solicitud))
+            };
+
+            fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Función para mostrar los datos
+        function mostrarDatos(data) {
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = '';
+
+            data.forEach(item => {
+                const personaDiv = document.createElement('div');
+                personaDiv.classList.add('persona');
+
+                personaDiv.innerHTML = `
+                    <h3>Persona: ${item.persona.nombre}</h3>
+                    <p><strong>Tipo de Persona:</strong> ${item.persona.tipoPersona.nombre}</p>
+                    <p><strong>Email:</strong> ${item.persona.email}</p>
+                    <p><strong>Documento:</strong> ${item.persona.documento}</p>
+                    <p><strong>Estado:</strong> ${item.estado}</p>
+                `;
+
+                // Crear el botón que muestra el nombre
+                const botonMostrarNombre = document.createElement('button');
+                botonMostrarNombre.textContent = 'Procesar Solicitud';
+                botonMostrarNombre.onclick = function() {
+                    procesarSolicitud(item);
+                    resultadoDiv.innerHTML = '';
+                };
+
+                if (item.productos.length > 0) {
+                    const productosDiv = document.createElement('div');
+                    productosDiv.classList.add('productos');
+                    productosDiv.innerHTML = '<h4>Producto:</h4>';
+
+                    item.productos.forEach(producto => {
+                        productosDiv.innerHTML += `<p>Producto: ${producto.nombre}</p>`;
+                    });
+
+                    personaDiv.appendChild(productosDiv);
+                } else {
+                    personaDiv.innerHTML += `<p>No tiene productos asociados.</p>`;
+                }
+
+                resultadoDiv.appendChild(personaDiv);
+
+                if(item.estado=="Pendiente"){
+                    personaDiv.appendChild(botonMostrarNombre);
+                }
+                
+            });
+        }
+
+        
+        document.getElementById('cargarTodos').addEventListener('click', getTodos);
+        document.getElementById('cargarAprovados').addEventListener('click', getAprovados);
+        document.getElementById('cargarPendientes').addEventListener('click', getPendientes);
+        document.getElementById('cargarRechazadas').addEventListener('click', getRechazadas);
+    </script>
+</body>
+</html>
